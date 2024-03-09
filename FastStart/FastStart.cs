@@ -18,13 +18,15 @@ namespace FastStart
         public const string __NAME__ = "FastStart";
         public const string __GUID__ = "com.Trol1face.dsp." + __NAME__;
         public static ConfigEntry<String> suppliesAmount;
+        public static ConfigEntry<bool> dronesTooSlow;
 
         private void Awake()
         {
             // Plugin startup logic
             suppliesAmount = Config.Bind("General", "Amount of supplies", "enough",
             "'few' gives a couple of machines to make work a bit less manual, \n'enough' gives a few dozens (enough to start a small mall), \nhuge is huge. Check thunderstore modpage for more info\nAVAILABLE OPTIONS (type in): few, enough, huge. \nDEFAULT: enough.");
-
+            dronesTooSlow = Config.Bind("General", "Drones too slow (only enough/huge)", false,
+            "If enabled you will also receive 300 blue matrix to fast upgrade drones speed+count.");
             new Harmony(__GUID__).PatchAll(typeof(Patch));
         }
 
@@ -61,6 +63,9 @@ namespace FastStart
         {
             String amount = suppliesAmount.Value;
             if (amount == "few" || amount == "enough" || amount == "huge") {
+                List <IDCNTINC> suppliesFew;
+                List <IDCNTINC> suppliesEnough;
+                List <IDCNTINC> suppliesHuge;
                 int minerId = 2301;
                 int smelterId = 2302;
                 int windTurbineId = 2203;
@@ -76,10 +81,12 @@ namespace FastStart
                 int coilId = 1202;
                 int circuitId = 1301;
                 int gearId = 1201;
-
-                IDCNTINC[] suppliesFew = {
+                int motorId = 1203;
+                int blueMatrixId = 6001;
+                suppliesFew = new() 
+                {
                     new(teslaTowerId, 10, 0),
-                    new(windTurbineId, 6, 0),
+                    new(windTurbineId, 8, 0),
                     new(minerId, 2, 0),
                     new(smelterId, 3, 0),
                     new(beltId, 100, 0),
@@ -88,10 +95,11 @@ namespace FastStart
                     //new(splitterId, 1, 0),
                     new(assemblerId, 3, 0),
                     new(coilId, 30, 0),
-                    new(gearId, 10, 0),
-                    new(circuitId, 30, 0)
+                    new(gearId, 20, 0),
+                    new(circuitId, 40, 0)
                 };
-                IDCNTINC[] suppliesEnough = {
+                suppliesEnough = new() 
+                {
                     new(teslaTowerId, 50, 0),
                     new(windTurbineId, 30, 0),
                     new(minerId, 14, 0),
@@ -103,13 +111,13 @@ namespace FastStart
                     new(assemblerId, 20, 0),
                     new(matrixLabId, 8, 0),
                     new(coilId, 30, 0),
-                    new(gearId, 10, 0),
-                    new(circuitId, 30, 0)
+                    new(gearId, 20, 0),
+                    new(circuitId, 40, 0)
                 };
-                IDCNTINC[] suppliesHuge = {
+                suppliesHuge = new() {
                     new(teslaTowerId, 200, 0),
-                    new(WirelessPowerTowerId, 20, 0),
                     new(windTurbineId, 30, 0),
+                    new(WirelessPowerTowerId, 20, 0),
                     new(thermalStationId, 8, 0),
                     new(minerId, 30, 0),
                     new(smelterId, 50, 0),
@@ -120,20 +128,26 @@ namespace FastStart
                     new(assemblerId, 50, 0),
                     new(matrixLabId, 20, 0),
                     new(coilId, 30, 0),
-                    new(gearId, 10, 0),
-                    new(circuitId, 30, 0),
+                    new(gearId, 20, 0),
+                    new(circuitId, 40, 0),
+                    new(motorId, 60, 0)
                 };
+                if (dronesTooSlow.Value) 
+                {
+                    suppliesEnough.Add(new(blueMatrixId, 300, 0));
+                    suppliesHuge.Add(new(blueMatrixId, 300, 0));
+                }
                 if (amount == "few")
                 {
-                    return suppliesFew;
+                    return suppliesFew.ToArray();
                 }
                 else if (amount == "enough")
                 {
-                    return suppliesEnough;
+                    return suppliesEnough.ToArray();
                 }
                 else if (amount == "huge")
                 {
-                    return suppliesHuge;
+                    return suppliesHuge.ToArray();
                 }
             }
             return Configs.freeMode.items;
