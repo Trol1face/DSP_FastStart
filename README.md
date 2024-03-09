@@ -3,11 +3,17 @@
 This mod alternates your starting inventory (10 copper and iron bars) to something else. 3 options right now.  
 It is not like super balanced but i don't think that **enough** is somehow OP. Huge is huge, thats why it called huge.
 
+Every option has 30 magnetic coils, 40 circuit boards and 20 gears for early techs (electromagnetism, metallurgy, matrix, assembling and logistics) to skip manual digging/crafting and unlock basic building tools.
+
+There is also an option in config that will add 300 blue matrixes to starting equip for fast drones speed+count research if you don't like their starting speed. *Personally i don't*
+
 #### few 
 
 Gives a very few machines to reduce this manual stage a bit.
 
 ![few](https://raw.githubusercontent.com/Trol1face/DSP_FastStart/main/images/few.png)
+
+Researching early techs rewards you with buildings, so for **few** its more likely 3 miners, 4 smelters and a couple more belts&sorters.
 
 #### enough
 
@@ -17,13 +23,9 @@ Gives enough to don't dig and craft things manual, to build a small mall which w
 
 #### huge
 
-Huge is huge. A lot of basic things, a dozen of wireless power towers (WPT) and couple of thermal power stations (TPS) to have no problems with energy. **You can't build unopened things via menu at the bottom, to build them take them from inventory.**
+Huge is huge. A lot of basic things, a dozen of wireless power towers (WPT) and couple of thermal power stations (TPS) to have no problems with early energy. **You can't build unopened things via menu at the bottom, to build them take them from inventory.**
 
 ![huge](https://raw.githubusercontent.com/Trol1face/DSP_FastStart/main/images/huge.png)
-
-Every option has 30 magnetic coils, 40 circuit boards and 20 gears for early techs (electromagnetism, metallurgy, matrix, assembling and logistics) to skip manual digging/crafting and unlock basic building tools.
-
-Researching early techs rewards you with buildings, so for **few** its more likely 3 miners, 4 smelters and a couple more belts&sorters.
 
 ## Recent changes
 
