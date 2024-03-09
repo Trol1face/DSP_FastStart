@@ -21,9 +21,9 @@ Huge is huge. A lot of basic things, a dozen of wireless power towers (WPT) and 
 
 ![huge](/Extra/huge.png)
 
-Every option has 30 magnetic coils, 30 circuit boards and 10 gears for first upgrades to skip manual digging/crafting and open basic building tools.
+Every option has 30 magnetic coils, 30 circuit boards and 10 gears for early techs to skip manual digging/crafting and open basic building tools.
 
-Researching starting techs rewards you with buildings, so for **few** its more likely 3 miners, 4 smelters and a couple more belts&sorters.
+Researching early techs rewards you with buildings, so for **few** its more likely 3 miners, 4 smelters and a couple more belts&sorters.
 
 ## Recent changes
 
