@@ -7,19 +7,19 @@ It is not like super balanced but i don't think that **enough** is somehow OP. H
 
 Gives a very few machines to reduce this manual stage a bit.
 
-![few](/images/few.png)
+![few](https://github.com/Trol1face/DSP_FastStart/blob/main/images/few.png)
 
 #### enough
 
 Gives enough to don't dig and craft things manual, to build a small mall which will replicate more things.
 
-![enough](/images/enough.png)
+![enough](https://github.com/Trol1face/DSP_FastStart/blob/main/images/enough.png)
 
 #### huge
 
 Huge is huge. A lot of basic things, a dozen of wireless power towers (WPT) and couple of thermal power stations (TPS) to have no problems with energy. **You can't build unopened things via menu at the bottom, to build them take them from inventory.**
 
-![huge](/images/huge.png)
+![huge](https://github.com/Trol1face/DSP_FastStart/blob/main/images/huge.png)
 
 Every option has 30 magnetic coils, 30 circuit boards and 10 gears for early techs to skip manual digging/crafting and open basic building tools.
 
