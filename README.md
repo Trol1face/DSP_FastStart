@@ -1,5 +1,6 @@
 # FastStart
 This mod alternates your starting inventory (10 copper and iron bars) to something else. 3 options right now.
+
 It is not like super balanced but i don't think that **enough** is somehow OP. Huge is huge, thats why it called huge.
 ##### few 
 Gives a very few machines to reduce this manual stage a bit.
@@ -24,6 +25,7 @@ Huge is huge. A lot of basic things, a dozen of wireless power towers (WPT) and 
 | TPS | - | - | 8 |
 
 Every option also has 30 magnetic coils, 30 circuit boards and 10 gears for first upgrades to skip manual digging/crafting and open basic building tools.
+
 Researching starting techs rewards you with buildings, so for **few** its more likely 3 miners, 4 smelters and a couple more belts&sorters.
 
 ## Recent changes
