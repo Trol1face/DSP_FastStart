@@ -1,6 +1,6 @@
 {
-    "name": "BuildingQOLs",
-    "version_number": "1.0.2",
+    "name": "FastStart",
+    "version_number": "1.0.3",
     "website_url": "https://github.com/Trol1face/DSP_BuildingQOLs",
     "description": "Alternates your starting inventory stuff from 10 iron copper bars to something more (configurable).",
     "dependencies": [
