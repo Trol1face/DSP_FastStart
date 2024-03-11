@@ -1,9 +1,10 @@
 {
     "name": "FastStart",
-    "version_number": "1.0.3",
-    "website_url": "https://github.com/Trol1face/DSP_BuildingQOLs",
-    "description": "Alternates your starting inventory stuff from 10 iron copper bars to something more (configurable).",
+    "version_number": "1.1.0",
+    "website_url": "https://github.com/Trol1face/DSP_FastStart",
+    "description": "Changes space capsule drop and early tech rewards to skip manual stage.",
     "dependencies": [
-    "xiaoye97-BepInEx-5.4.17"
+    "xiaoye97-BepInEx-5.4.17",
+    "xiaoye97-LDBTool-3.0.1"
     ]
 }
