@@ -1,157 +1,188 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using System;
+using xiaoye97;
 
 namespace FastStart
 {
-    [BepInPlugin(__GUID__, __NAME__, "1.0.0")]
+        
+    [BepInPlugin(__GUID__, __NAME__, "1.1.0")]
+
     public class FastStart : BaseUnityPlugin
     {
-        //public static float suppliesAmount;
-
+        
         public const string __NAME__ = "FastStart";
         public const string __GUID__ = "com.Trol1face.dsp." + __NAME__;
+
+        static int electromagnetismTechId = 1001;
+        static int smeltingTechId = 1401;
+        static int assemblyTechId = 1201;
+        static int matrixTechId = 1002;
+        static int logisticsMk1TechId = 1601;
+        static int logisticsMk2TechId = 1602;
+        static int thermalPowerTechId = 1412;
+        static int plasmaControlTechId = 1101;
+        static int electromagneticDriveTechId = 1701;
+        static int interplanetaryLogisticsTechId = 1605;
+        static int matrixLabId = 2901;
+        static int coilId = 1202;
+        static int beltMk1Id = 2001;
+        static int sorterk1Id = 2011;
+        static int storageMk1Id = 2101;
+        static int circuitId = 1301;
+        static int gearId = 1201;
+        static int motorId = 1203;
+        static int blueMatrixId = 6001;
+        static int wirelessTowerId = 2202;
+        static int ILSId = 2104;
+        static int vesselId = 5002;
+
         public static ConfigEntry<String> suppliesAmount;
-        public static ConfigEntry<bool> dronesTooSlow;
+        public static ConfigEntry<bool> giveBlueMatrix;
+        public static ConfigEntry<bool> giveFreeILS;
 
         private void Awake()
         {
             // Plugin startup logic
             suppliesAmount = Config.Bind("General", "Amount of supplies", "enough",
-            "'few' gives a couple of machines to make work a bit less manual, \n'enough' gives a few dozens (enough to start a small mall), \nhuge is huge. Check thunderstore modpage for more info\nAVAILABLE OPTIONS (type in): few, enough, huge. \nDEFAULT: enough.");
-            dronesTooSlow = Config.Bind("General", "Drones too slow (only enough/huge)", false,
-            "If enabled you will also receive 300 blue matrix to fast upgrade drones speed+count.");
+                "'few' gives a couple of machines to make work a bit less manual, \n"+
+                "'enough' gives a few dozens (enough to start a small mall), \n"+
+                "huge is huge. Check thunderstore modpage for more info\n"+
+                "AVAILABLE OPTIONS (type in): few, enough, huge. \nDEFAULT: enough.");
+            giveBlueMatrix = Config.Bind("General", "Drones too slow (only enough/huge)", false,
+                "If enabled completing matrixlab research will also give 300 blue matrixes to fast upgrade drones speed+count. Or something else\nDEFAULT: false");
+            giveFreeILS = Config.Bind("General", "Free ILS (only enough/huge)", false,
+                "If enabled completing Interplanetary Logistics research will award you with 2 ILS and 6 vessels.\nDEFAULT: false");
             new Harmony(__GUID__).PatchAll(typeof(Patch));
+            
+            LDBTool.EditDataAction += editElectromagnetismTech;
+            LDBTool.EditDataAction += editAssemblyTech;
+            LDBTool.EditDataAction += editSmeltingTech;
+            LDBTool.EditDataAction += editMatrixTech;
+            LDBTool.EditDataAction += editLogisticsMk1Tech;
+            LDBTool.EditDataAction += editLogisticsMk2Tech;
+            LDBTool.EditDataAction += editThermalPowerTech;
+            LDBTool.EditDataAction += editPlasmaControlTech;
+            LDBTool.EditDataAction += editElectromagneticDriveTech;
+            LDBTool.EditDataAction += editInterplanetaryLogisticsTech;
+            LDBTool.EditDataAction += editSpaceCapsuleLoot;
         }
 
-        static class Patch
-        {
-            [HarmonyTranspiler, HarmonyPatch(typeof(Player), "SetForNewGame")]
-            public static IEnumerable<CodeInstruction> Player_SetForNewGame_Transpiler(IEnumerable<CodeInstruction> instructions)
-            {
-                String value = suppliesAmount.Value;
-                if (value == "few" || value == "enough" || value == "huge") 
-                {
-                    CodeMatcher matcher = new(instructions);
-                    MethodInfo rep = typeof(FastStart).GetMethod("SuppliesDecider");
-                    MethodInfo anchorM = typeof(Configs).GetMethod("get_freeMode");
-                    FieldInfo anchorF = typeof(ModeConfig).GetField("items");
-                    matcher.MatchForward(false, 
-                        new CodeMatch(i => i.opcode == OpCodes.Call && i.operand is MethodInfo m && m == anchorM),
-                        new CodeMatch(i => i.opcode == OpCodes.Ldfld && i.operand is FieldInfo f && f == anchorF)
-                    );
-                    matcher.RemoveInstructions(2);
-                    matcher.Insert(
-                        new CodeInstruction(OpCodes.Call, rep)
-                    );
-                    //foreach (CodeInstruction ins in matcher.Instructions()) Debug.Log(" .. " + ins.ToString());
-
-                    return matcher.InstructionEnumeration();
-                
-                }
-                return instructions;
-            }
-        }
-
-        public static IDCNTINC[] SuppliesDecider() 
+        public static void editElectromagnetismTech(Proto proto) 
         {
             String amount = suppliesAmount.Value;
-            if (amount == "few" || amount == "enough" || amount == "huge") {
-                List <IDCNTINC> suppliesFew;
-                List <IDCNTINC> suppliesEnough;
-                List <IDCNTINC> suppliesHuge;
-                int minerId = 2301;
-                int smelterId = 2302;
-                int windTurbineId = 2203;
-                int teslaTowerId = 2201;
-                int sorterId = 2011;
-                int beltId = 2001;
-                int splitterId = 2020;
-                int storageId = 2101;
-                int assemblerId = 2303;
-                int matrixLabId = 2901;
-                int thermalStationId = 2204;
-                int WirelessPowerTowerId = 2202;
-                int coilId = 1202;
-                int circuitId = 1301;
-                int gearId = 1201;
-                int motorId = 1203;
-                int blueMatrixId = 6001;
-                suppliesFew = new() 
+            if (proto is TechProto techProto && proto.ID == electromagnetismTechId) 
+            {
+                if (amount == "few") techProto.AddItemCounts = new int[] {10, 10, 3};
+                if (amount == "enough") techProto.AddItemCounts = new int[] {30, 60, 15};
+                if (amount == "huge") techProto.AddItemCounts = new int[] {40, 100, 30};
+            }
+        }
+        public static void editSmeltingTech(Proto proto) 
+        {
+            String amount = suppliesAmount.Value;
+            if (proto is TechProto techProto && proto.ID == smeltingTechId) 
+            {
+                if (amount == "few") techProto.AddItemCounts = new int[] {4};
+                if (amount == "enough") techProto.AddItemCounts = new int[] {24};
+                if (amount == "huge") techProto.AddItemCounts = new int[] {48};
+            }
+        }
+        public static void editAssemblyTech(Proto proto) 
+        {
+            String amount = suppliesAmount.Value;
+            if (proto is TechProto techProto && proto.ID == assemblyTechId) 
+            {
+                if (amount == "few") techProto.AddItemCounts = new int[] {4};
+                if (amount == "enough") techProto.AddItemCounts = new int[] {24};
+                if (amount == "huge") techProto.AddItemCounts = new int[] {48};
+            }
+        }
+        public static void editMatrixTech(Proto proto) 
+        {
+            String amount = suppliesAmount.Value;
+            if (proto is TechProto techProto && proto.ID == matrixTechId) 
+            {
+                if (giveBlueMatrix.Value && amount != "few") 
                 {
-                    new(teslaTowerId, 10, 0),
-                    new(windTurbineId, 8, 0),
-                    new(minerId, 2, 0),
-                    new(smelterId, 3, 0),
-                    new(beltId, 100, 0),
-                    new(storageId, 1, 0),
-                    new(sorterId, 15, 0),
-                    //new(splitterId, 1, 0),
-                    new(assemblerId, 3, 0),
-                    new(coilId, 30, 0),
-                    new(gearId, 20, 0),
-                    new(circuitId, 40, 0)
-                };
-                suppliesEnough = new() 
-                {
-                    new(teslaTowerId, 50, 0),
-                    new(windTurbineId, 30, 0),
-                    new(minerId, 14, 0),
-                    new(smelterId, 24, 0),
-                    new(beltId, 600, 0),
-                    new(storageId, 6, 0),
-                    new(sorterId, 100, 0),
-                    new(splitterId, 10, 0),
-                    new(assemblerId, 20, 0),
-                    new(matrixLabId, 8, 0),
-                    new(coilId, 30, 0),
-                    new(gearId, 20, 0),
-                    new(circuitId, 40, 0)
-                };
-                suppliesHuge = new() {
-                    new(teslaTowerId, 200, 0),
-                    new(windTurbineId, 30, 0),
-                    new(WirelessPowerTowerId, 20, 0),
-                    new(thermalStationId, 8, 0),
-                    new(minerId, 30, 0),
-                    new(smelterId, 50, 0),
-                    new(beltId, 900, 0),
-                    new(sorterId, 400, 0),
-                    new(splitterId, 50, 0),
-                    new(storageId, 30, 0),
-                    new(assemblerId, 50, 0),
-                    new(matrixLabId, 20, 0),
-                    new(coilId, 30, 0),
-                    new(gearId, 20, 0),
-                    new(circuitId, 40, 0),
-                    new(motorId, 60, 0)
-                };
-                if (dronesTooSlow.Value) 
-                {
-                    suppliesEnough.Add(new(blueMatrixId, 300, 0));
-                    suppliesHuge.Add(new(blueMatrixId, 300, 0));
-                }
-                if (amount == "few")
-                {
-                    return suppliesFew.ToArray();
-                }
-                else if (amount == "enough")
-                {
-                    return suppliesEnough.ToArray();
-                }
-                else if (amount == "huge")
-                {
-                    return suppliesHuge.ToArray();
+                    techProto.AddItems = new int[] {matrixLabId, blueMatrixId}; 
+                    if (amount == "enough") techProto.AddItemCounts = new int[] {12, 300};
+                    if (amount == "huge") techProto.AddItemCounts = new int[] {24, 300};
+                } else {
+                    if (amount == "few") techProto.AddItemCounts = new int[] {2};
+                    if (amount == "enough") techProto.AddItemCounts = new int[] {12};
+                    if (amount == "huge") techProto.AddItemCounts = new int[] {24};
                 }
             }
-            return Configs.freeMode.items;
-            
+        }
+        public static void editLogisticsMk1Tech(Proto proto) 
+        {
+            String amount = suppliesAmount.Value;
+            if (proto is TechProto techProto && proto.ID == logisticsMk1TechId) 
+            {
+                techProto.AddItems = new int[] {beltMk1Id, sorterk1Id, storageMk1Id};
+                if (amount == "few") techProto.AddItemCounts = new int[] {120, 20, 2};
+                if (amount == "enough") techProto.AddItemCounts = new int[] {600, 120, 10};
+                if (amount == "huge") techProto.AddItemCounts = new int[] {1200, 300, 30};
+            }
+        }
+        public static void editLogisticsMk2Tech(Proto proto) 
+        {
+            String amount = suppliesAmount.Value;
+            if (proto is TechProto techProto && proto.ID == logisticsMk2TechId && amount != "few") 
+            {
+                if (amount == "enough") techProto.AddItemCounts = new int[] {10, 20};
+                if (amount == "huge") techProto.AddItemCounts = new int[] {20, 40};
+            }
+        }
+        public static void editThermalPowerTech(Proto proto) 
+        {
+            String amount = suppliesAmount.Value;
+            if (proto is TechProto techProto && proto.ID == thermalPowerTechId && amount != "few") 
+            {
+                if (amount == "enough") techProto.AddItemCounts = new int[] {4};
+                if (amount == "huge") techProto.AddItemCounts = new int[] {9};
+            }
+        }
+        public static void editPlasmaControlTech(Proto proto) 
+        {
+            String amount = suppliesAmount.Value;
+            if (proto is TechProto techProto && proto.ID == plasmaControlTechId && amount != "few") 
+            {
+                techProto.AddItems = new int[] {wirelessTowerId}; 
+                if (amount == "enough") techProto.AddItemCounts = new int[] {5};
+                if (amount == "huge") techProto.AddItemCounts = new int[] {20};
+            }
+        }
+        public static void editElectromagneticDriveTech(Proto proto) 
+        {
+            String amount = suppliesAmount.Value;
+            if (proto is TechProto techProto && proto.ID == electromagneticDriveTechId && amount != "few") 
+            {
+                techProto.AddItems = new int[] {motorId};
+                techProto.AddItemCounts = new int[] {60};
+            }
+        }
+        public static void editInterplanetaryLogisticsTech(Proto proto) 
+        {
+            String amount = suppliesAmount.Value;
+            if (proto is TechProto techProto && proto.ID == interplanetaryLogisticsTechId && amount != "few" && giveFreeILS.Value) 
+            {
+                techProto.AddItems = new int[] {ILSId, vesselId};
+                techProto.AddItemCounts = new int[] {2, 6};
+            }
+        }
+        public static void editSpaceCapsuleLoot(Proto proto)
+        {
+            if (proto is VegeProto vegeProto && proto.ID == 9999)
+            {
+                vegeProto.MiningTime = 120;
+                vegeProto.MiningItem = new int[] {1801, coilId, circuitId, gearId};
+                vegeProto.MiningCount = new int[] {3, 30, 40, 20};
+            }
         }
     }
+
 }

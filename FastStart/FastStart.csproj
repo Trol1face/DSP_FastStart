@@ -1,32 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <AssemblyName>FastStart</AssemblyName>
-    <Description>Alternates your starting inventory stuff from 10 iron copper bars to something more (configurable).</Description>
-    <Version>1.0.0</Version>
+    <Description>Changes space capsule drop and early tech rewards to skip manual stage.</Description>
+    <Version>1.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
-<ItemGroup>
+  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>F:\Games\Steam\steamapps\common\Dyson Sphere Program\BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
-    <PackageReference Include="DysonSphereProgram.GameLibs" Version="0.10.29.21950-r.0" />
     <Reference Include="BepInEx">
       <HintPath>F:\Games\Steam\steamapps\common\Dyson Sphere Program\BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonAPI">
+      <HintPath>F:\Games\Thunderstore Mod Manager\DataFolder\DysonSphereProgram\profiles\Default\BepInEx\plugins\CommonAPI-CommonAPI\CommonAPI.dll</HintPath>
     </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>F:\Games\Steam\steamapps\common\Dyson Sphere Program\DSPGAME_Data\Managed\netstandard.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System"/>
+    <Reference Include="System.Core"/>
+    <Reference Include="System.Data.DataSetExtensions"/>
+    <Reference Include="Microsoft.CSharp"/>
+    <Reference Include="System.Data"/>
+    <Reference Include="System.Xml"/>
     <Reference Include="UnityEngine">
       <HintPath>F:\Games\Steam\steamapps\common\Dyson Sphere Program\DSPGAME_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
@@ -40,12 +40,11 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>F:\Games\Steam\steamapps\common\Dyson Sphere Program\DSPGAME_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
+    <PackageReference Include="DysonSphereProgram.GameLibs" Version="0.10.29.21950-r.0"/>
+    <PackageReference Include="DysonSphereProgram.Modding.LDBTool" Version="3.0.0"/>
+    <PackageReference Include="DysonSphereProgram.Modding.DSPModSave" Version="1.2.0"/>
   </ItemGroup>
-  
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="DysonSphereProgram.Modding.UI.Builder" Version="0.0.5" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
   </ItemGroup>
 </Project>

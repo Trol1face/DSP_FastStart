@@ -1,33 +1,43 @@
 # FastStart
 
-This mod alternates your starting inventory (10 copper and iron bars) to something else. 3 options right now.  
-It is not like super balanced but i don't think that **enough** is somehow OP. Huge is huge, thats why it called huge.
+This mod changes space capsule loot and early tech rewards to skip manual digging/crafting stage. 3 options right now.  
 
-Every option has 30 magnetic coils, 40 circuit boards and 20 gears for early techs (electromagnetism, metallurgy, matrix, assembling and logistics) to skip manual digging/crafting and unlock basic building tools.
+In every option space capsule drops enough materials to research electromagnetism, logistics, smelting, assembly and matrixlab.
 
-There is also an option in config that will add 300 blue matrixes to starting equip for fast drones speed+count research if you don't like their starting speed. *Personally i don't*
+There are 2 options in config:
 
-#### few 
+- first will give blue matrixes for fast first drones speed+count research if you don't like their starting speed. *Personally i don't.*
+- second will reward you with 2 ILS and 6 vessels for completing Interplanetary Logistics research, so you won't fly back and forth a couple times to setup first ILS;
 
-Gives a very few machines to reduce this manual stage a bit.
+### Detailed rewards (IMPORTANT: every building is a reward for corresponding tech research)
+
+#### 'few' option
+
+Gives a little more than default rewards.
 
 ![few](https://raw.githubusercontent.com/Trol1face/DSP_FastStart/main/images/few.png)
 
-Researching early techs rewards you with buildings, so for **few** its more likely 3 miners, 4 smelters and a couple more belts&sorters.
+#### 'enough' option
 
-#### enough
-
-Gives enough to don't dig and craft things manual, to build a small mall which will replicate more things.
+Gives a lot more, enough to setup blues. Also 60 motors for first movespeed research.
 
 ![enough](https://raw.githubusercontent.com/Trol1face/DSP_FastStart/main/images/enough.png)
 
-#### huge
+#### 'huge' option
 
-Huge is huge. A lot of basic things, a dozen of wireless power towers (WPT) and couple of thermal power stations (TPS) to have no problems with early energy. **You can't build unopened things via menu at the bottom, to build them take them from inventory.**
+Lots of everything
 
 ![huge](https://raw.githubusercontent.com/Trol1face/DSP_FastStart/main/images/huge.png)
 
+#### Space capsule drop
+
+![space capsule drop](https://raw.githubusercontent.com/Trol1face/DSP_FastStart/main/images/capsuledrop.png)
+
 ## Recent changes
+
+#### 1.1.0
+
+Changed whole mod, no more cheaters inventory that you can't properly use right after landing, things are gained as awards for basic tech researches and space capsule drops you research components. Also added one more option.
 
 #### 1.0.3
 
