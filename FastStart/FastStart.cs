@@ -11,7 +11,7 @@ using System.Reflection.Emit;
 namespace FastStart
 {
         
-    [BepInPlugin(__GUID__, __NAME__, "1.1.0")]
+    [BepInPlugin(__GUID__, __NAME__, "1.1.1")]
 
     public class FastStart : BaseUnityPlugin
     {
@@ -70,6 +70,35 @@ namespace FastStart
             if (researchMode.Value && (suppliesAmount.Value == "few" || suppliesAmount.Value == "enough" || suppliesAmount.Value == "huge")) 
             {
                 LDBToolEditData();
+            }
+        }
+
+        public static void LDBToolEditData() {
+            LDBTool.EditDataAction += ModifySpaceCapsuleLoot;
+            LDBTool.EditDataAction += ModifyElectromagnetismTech;
+            LDBTool.EditDataAction += ModifyAssemblyTech;
+            LDBTool.EditDataAction += ModifySmeltingTech;
+            LDBTool.EditDataAction += ModifyMatrixTech;
+            LDBTool.EditDataAction += ModifyLogisticsMk1Tech;
+            if (speedUpItemTechs.Value)
+            {
+                LDBTool.EditDataAction += ModifyMechaCoreTech;
+                LDBTool.EditDataAction += ModifyMechanicalFrameTech;
+                LDBTool.EditDataAction += ModifyMechaFlightTech;
+                LDBTool.EditDataAction += ModifyEnergyCircuitTech;
+                LDBTool.EditDataAction += ModifyInventoryCapacityTech;
+                LDBTool.EditDataAction += ModifyMassConstructionTech;
+            }
+            if (suppliesAmount.Value != "few") 
+            {
+                LDBTool.EditDataAction += ModifyLogisticsMk2Tech;
+                LDBTool.EditDataAction += ModifyThermalPowerTech;
+                LDBTool.EditDataAction += ModifyPlasmaControlTech;
+                LDBTool.EditDataAction += ModifyElectromagneticDriveTech;
+                if (giveFreeILS.Value) 
+                {
+                    LDBTool.EditDataAction += ModifyInterplanetaryLogisticsTech;
+                }
             }
         }
 
@@ -344,34 +373,6 @@ namespace FastStart
             }
         }
 
-        public static void LDBToolEditData() {
-            LDBTool.EditDataAction += ModifySpaceCapsuleLoot;
-            LDBTool.EditDataAction += ModifyElectromagnetismTech;
-            LDBTool.EditDataAction += ModifyAssemblyTech;
-            LDBTool.EditDataAction += ModifySmeltingTech;
-            LDBTool.EditDataAction += ModifyMatrixTech;
-            LDBTool.EditDataAction += ModifyLogisticsMk1Tech;
-            if (speedUpItemTechs.Value)
-            {
-                LDBTool.EditDataAction += ModifyMechaCoreTech;
-                LDBTool.EditDataAction += ModifyMechanicalFrameTech;
-                LDBTool.EditDataAction += ModifyMechaFlightTech;
-                LDBTool.EditDataAction += ModifyEnergyCircuitTech;
-                LDBTool.EditDataAction += ModifyInventoryCapacityTech;
-                LDBTool.EditDataAction += ModifyMassConstructionTech;
-            }
-            if (suppliesAmount.Value != "few") 
-            {
-                LDBTool.EditDataAction += ModifyLogisticsMk2Tech;
-                LDBTool.EditDataAction += ModifyThermalPowerTech;
-                LDBTool.EditDataAction += ModifyPlasmaControlTech;
-                LDBTool.EditDataAction += ModifyElectromagneticDriveTech;
-                if (giveFreeILS.Value) 
-                {
-                    LDBTool.EditDataAction += ModifyInterplanetaryLogisticsTech;
-                }
-            }
-        }
     }
 
 }
