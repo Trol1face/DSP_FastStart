@@ -1,8 +1,8 @@
 {
     "name": "FastStart",
-    "version_number": "1.1.0",
+    "version_number": "1.1.1",
     "website_url": "https://github.com/Trol1face/DSP_FastStart",
-    "description": "Changes space capsule drop and early tech rewards to skip manual stage.",
+    "description": "Gives you more starting gear to make beginning less manual.",
     "dependencies": [
     "xiaoye97-BepInEx-5.4.17",
     "xiaoye97-LDBTool-3.0.1"
