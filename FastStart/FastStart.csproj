@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>FastStart</AssemblyName>
-    <Description>Changes space capsule drop and early tech rewards to skip manual stage.</Description>
-    <Version>1.1.0</Version>
+    <Description>Gives you more starting gear to make beginning less manual.</Description>
+    <Version>1.1.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
