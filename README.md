@@ -51,7 +51,7 @@ Lots of everything
 
 #### 1.1.1
 
-**If updated to this version remove config file and create new one (launch game once). No more stupid names**
+**If updated to this version remove config file and create new one (launch game once)**
 
 - Old way to gain items is back and set as **Default**, new way is called **Research mode** and is should be enabled in config if you like its features.
 - Also there was a bug with mk2 logistics, not anymore.
