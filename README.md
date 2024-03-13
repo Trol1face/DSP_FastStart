@@ -49,6 +49,10 @@ Lots of everything
 
 ## Recent changes
 
+#### 1.1.2
+
+- Just a bit of code changes so now here is a cool method for hashneed reducing. *Still need to divide this pile of code to some parts*
+
 #### 1.1.1
 
 **If updated to this version remove config file and create new one (launch game once)**

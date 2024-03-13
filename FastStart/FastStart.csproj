@@ -4,6 +4,7 @@
     <AssemblyName>FastStart</AssemblyName>
     <Description>Gives you more starting gear to make beginning less manual.</Description>
     <Version>1.1.1</Version>
+    <RootNamespace>FastStart</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
